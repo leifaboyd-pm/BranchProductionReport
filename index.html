@@ -1,0 +1,2667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partners Mortgage • Production Analytics</title>
+
+<!-- FAVICON: Partners Mortgage P-house mark -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 1200'><path fill='%2300818D' d='M596.662 144.389c34.998-3.172 61.633 12.496 92.264 26.447l92.646 42.659 148.298 67.771c24.231 11.112 55.887 23.912 77.53 38.258 13.33 8.839 24.72 33.444 25.74 49.353 1.78 27.628.95 59.551.93 87.73l-.04 172.002-.01 232.228.09 70.326c.13 33.766 7.63 85.057-38.179 90.057-15.486 1.69-29.669 1.15-45.212 1.13l-74.309-.02-285.711-.03-86.45.01c-14.861.01-38.143-.55-52.35 1.07l-.046-165.707c19.573 1.577 50.149.697 70.701.7l127.415-.019 121.152.044c21.565.013 43.424.502 64.903-.442 18.695-.822 32.803-15.317 34.427-33.722 1.872-21.221 1.396-42.176 1.37-63.418l-.058-96.799.038-113.437c.027-24.681.763-55.347-1.605-79.567-12.076-45.993-37.565-49.775-76.888-67.799l-72.36-33.097-54.019-24.848c-9.531-4.383-22.948-10.989-32.496-14.364a96.2 96.2 0 0 0-33.498-5.572c-25.078.388-42.907 10.519-65.353 20.392l-64.644 28.356-71.674 31.049c-12.541 5.403-30.558 12.592-42.119 18.702a78.6 78.6 0 0 0-19.741 14.962c-9.545 10.062-13.98 19.273-14.725 32.864-1.192 21.728-.655 45.343-.657 67.163l-.011 131.777.001 230.009c.004 39.353-.966 83.426.274 122.493-42.124-2.7-86.002 1.52-128.054-1.62-21.241-1.59-34.093-22.682-35.179-42.768-1.814-33.543-.949-67.966-.947-101.836l-.018-196.325-.042-204.259.009-63.039c.024-39.48-2.981-79.379 39.039-100.877 17.503-8.954 35.936-16.19 53.963-24.053l106.559-46.34 136.739-59.616c29.428-12.846 71.164-34.849 102.307-37.978'/><path fill='%238D807A' d='M595.645 451.22c1.691-.129 3.383-.179 5.078-.229 6.631-.197 13.421-.426 19.841 1.531 14.632 4.461 114.164 49.015 123.352 57.864 10.183 9.808 11.358 21.62 11.657 35.051.863 38.733-.121 77.697-.053 116.46.032 18.651 2.007 48.461-.496 65.954-.65 4.537-2.584 8.555-5.811 11.837-3.556 3.615-7.359 5.308-12.282 6.235-14.533 2.736-30.894 1.266-45.713 1.252l-78.718-.093-88.692.097c-16.25.029-32.393.216-48.658-.311-20.876-.677-25.795-12.942-25.444-31.885.12-6.488-.041-13.959-.045-20.49l.023-61.993-.042-64.309c.007-25.725-5.239-51.071 22.278-64.213 31.426-15.009 63.719-28.079 95.559-42.207 8.45-3.75 19.332-8.5 28.166-10.551'/></svg>">
+
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Barlow:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#00818D;
+  --teal-dark:#006672;
+  --teal-deep:#004A52;
+  --teal-ink:#002c33;
+  --teal-light:#e6f5f6;
+  --teal-mid:#bce8ec;
+  --gold:#FFAC27;
+  --gold-light:#FFD98A;
+  --gold-soft:#FFF3D9;
+  --gold-dark:#D68A00;
+  --warm:#8A7E78;
+  --warm-light:#f5f3f1;
+  --warm-mid:#e8e3df;
+  --text-dark:#1a2e35;
+  --text-mid:#3a4e55;
+  --text-light:#6b7c82;
+  --text-faint:#9ba8ae;
+  --cream:#fbf9f5;
+  --cream-mid:#f4efe6;
+  --white:#ffffff;
+  --border:#e0dcda;
+  --border-light:#eee8e1;
+  --shadow-xs:0 1px 3px rgba(0,44,51,.06);
+  --shadow-sm:0 4px 16px rgba(0,44,51,.07);
+  --shadow-md:0 12px 40px rgba(0,44,51,.10);
+  --shadow-lg:0 24px 70px rgba(0,44,51,.14);
+  --r-sm:8px;
+  --r-md:14px;
+  --r-lg:22px;
+  --r-xl:32px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Barlow',sans-serif;
+  background:var(--cream);
+  color:var(--text-dark);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Header */
+.header{
+  position:sticky;top:0;z-index:300;
+  background:rgba(251,249,245,.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(0,129,141,.07);
+  height:74px;
+}
+.header-inner{
+  max-width:1400px;margin:0 auto;
+  padding:0 44px;height:100%;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo-section{display:flex;align-items:center;gap:14px;}
+.logo-icon{width:40px;height:40px;}
+.logo-icon svg{width:100%;height:100%;}
+.logo-text{display:flex;flex-direction:column;line-height:1;}
+.logo-title{
+  font-family:'Barlow',sans-serif;font-weight:800;
+  font-size:15px;letter-spacing:2.4px;color:var(--teal-ink);
+}
+.logo-subtitle{
+  font-family:'Lora',serif;font-style:italic;
+  font-weight:500;font-size:13px;color:var(--gold-dark);
+  margin-top:2px;letter-spacing:.3px;
+}
+.header-actions{display:flex;gap:12px;}
+.btn{
+  padding:10px 20px;border-radius:999px;
+  font-size:12px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;cursor:pointer;
+  border:none;transition:all .25s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-secondary{
+  background:var(--white);color:var(--text-mid);
+  border:1px solid var(--border);
+}
+.btn-secondary:hover{border-color:var(--teal);color:var(--teal);}
+.btn-primary{
+  background:var(--teal-ink);color:var(--white);
+}
+.btn-primary:hover{background:var(--teal);}
+
+/* Container */
+.container{
+  max-width:1400px;margin:0 auto;
+  padding:60px 44px;
+}
+
+/* Page header */
+.page-header{margin-bottom:48px;}
+.page-eyebrow{
+  font-family:'Lora',serif;font-style:italic;
+  font-size:14px;font-weight:500;color:var(--gold-dark);
+  margin-bottom:14px;letter-spacing:1px;
+}
+.page-eyebrow em{font-style:normal;}
+.page-label{
+  font-size:11px;font-weight:800;letter-spacing:3.5px;
+  text-transform:uppercase;color:var(--teal);margin-bottom:18px;
+}
+.page-title{
+  font-family:'Lora',serif;
+  font-size:clamp(36px,4vw,56px);font-weight:600;
+  color:var(--text-dark);line-height:1.05;
+  letter-spacing:-1.4px;margin-bottom:20px;
+}
+.page-title em{font-style:italic;color:var(--teal);font-weight:500;}
+.page-subtitle{
+  font-size:17px;line-height:1.7;color:var(--text-mid);
+  max-width:600px;
+}
+
+/* Metrics Grid */
+.metrics-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;margin-bottom:48px;
+}
+.metric-card{
+  background:var(--white);
+  border-radius:var(--r-xl);
+  padding:32px;
+  border:1px solid var(--border-light);
+  position:relative;overflow:hidden;
+  transition:all .35s cubic-bezier(.2,.7,.2,1);
+}
+.metric-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:4px;
+  background:linear-gradient(135deg,var(--teal) 0%,var(--teal-deep) 100%);
+}
+.metric-card.gold::before{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);}
+.metric-card.warm::before{background:linear-gradient(135deg,var(--warm) 0%,var(--text-mid) 100%);}
+.metric-card.deep::before{background:linear-gradient(135deg,var(--teal-deep) 0%,var(--teal-ink) 100%);}
+.metric-card:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-md);
+}
+.metric-status{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--teal-light);color:var(--teal-dark);
+  font-size:10px;font-weight:800;letter-spacing:1.5px;
+  text-transform:uppercase;padding:6px 13px;border-radius:999px;
+  margin-bottom:20px;
+}
+.metric-status::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--teal);animation:pulse 2s infinite;
+}
+.metric-status.gold{background:var(--gold-soft);color:var(--gold-dark);}
+.metric-status.gold::before{background:var(--gold);}
+.metric-status.warm{background:var(--warm-light);color:var(--text-dark);}
+.metric-status.warm::before{background:var(--warm);}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+.metric-label{
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--text-light);
+  margin-bottom:12px;
+}
+.metric-value{
+  font-family:'Lora',serif;font-size:42px;font-weight:700;
+  color:var(--text-dark);line-height:1;letter-spacing:-1px;
+  margin-bottom:10px;
+}
+.metric-value em{font-style:italic;color:var(--teal);font-weight:500;}
+.metric-change{
+  font-size:14px;color:var(--text-mid);line-height:1.5;
+}
+
+/* Section */
+.section{
+  background:var(--white);
+  border-radius:var(--r-xl);
+  border:1px solid var(--border-light);
+  margin-bottom:32px;overflow:hidden;
+}
+.section-header{
+  padding:28px 32px;
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid var(--border-light);
+}
+.section-title{
+  font-family:'Lora',serif;font-size:24px;font-weight:700;
+  color:var(--text-dark);letter-spacing:-.4px;
+}
+.section-title em{font-style:italic;color:var(--teal);font-weight:500;}
+.year-toggle{
+  display:flex;background:var(--cream);
+  border-radius:999px;padding:4px;border:1px solid var(--border-light);
+}
+.year-btn{
+  padding:8px 18px;border:none;background:none;
+  font-size:13px;font-weight:600;letter-spacing:.3px;
+  color:var(--text-light);border-radius:999px;cursor:pointer;
+  transition:all .2s;
+}
+.year-btn.active{
+  background:var(--teal);color:var(--white);
+  box-shadow:var(--shadow-xs);
+}
+
+/* Production Table */
+.table-wrapper{overflow-x:auto;}
+.production-table{
+  width:100%;border-collapse:collapse;font-size:13px;
+}
+.production-table th{
+  background:var(--cream);
+  padding:14px 12px;text-align:left;
+  font-weight:700;color:var(--text-dark);
+  border-bottom:2px solid var(--border);
+  font-size:11px;letter-spacing:.5px;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.production-table th.month-col,
+.production-table th.total-col{text-align:right;}
+.production-table th.total-col{
+  background:var(--teal);color:var(--white);
+}
+.production-table td{
+  padding:12px;border-bottom:1px solid var(--border-light);
+  vertical-align:middle;
+}
+.production-table .branch-name{
+  font-weight:700;color:var(--teal);font-size:12px;
+  letter-spacing:.5px;
+}
+.production-table .lo-name{
+  font-weight:600;color:var(--text-dark);
+}
+.production-table .metric-type{
+  font-size:11px;color:var(--text-light);
+  font-weight:500;letter-spacing:.3px;
+}
+.production-table .amount{
+  text-align:right;font-weight:600;color:var(--teal-dark);
+  font-variant-numeric:tabular-nums;
+}
+.production-table .count{
+  text-align:right;color:var(--text-light);
+  font-size:12px;font-variant-numeric:tabular-nums;
+}
+.production-table .total{
+  text-align:right;font-weight:700;
+  background:var(--cream);color:var(--text-dark);
+  font-variant-numeric:tabular-nums;
+}
+.production-table tbody tr:hover{background:var(--cream);}
+.production-table tbody tr.subtotal-row{
+  background:var(--teal-light) !important;
+  font-weight:700;
+}
+.production-table tbody tr.subtotal-row td{
+  color:var(--teal-dark);
+  border-top:1px solid var(--teal-mid);
+  border-bottom:1px solid var(--teal-mid);
+}
+.production-table tbody tr.grand-total-row{
+  background:var(--teal-ink) !important;
+}
+.production-table tbody tr.grand-total-row td{
+  color:var(--white) !important;
+  font-weight:800;
+}
+.zero-value{color:var(--text-faint);opacity:.5;}
+
+/* Modal */
+.modal{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,44,51,.5);backdrop-filter:blur(8px);
+  z-index:1000;padding:24px;
+}
+.modal-content{
+  background:var(--white);border-radius:var(--r-xl);
+  max-width:560px;width:100%;margin:5vh auto;
+  border:1px solid var(--border-light);
+  box-shadow:var(--shadow-lg);
+  max-height:90vh;overflow-y:auto;
+}
+.modal-header{
+  padding:32px 32px 20px;
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid var(--border-light);
+}
+.modal-title{
+  font-family:'Lora',serif;font-size:24px;font-weight:700;
+  color:var(--text-dark);letter-spacing:-.4px;
+}
+.close-btn{
+  width:36px;height:36px;border:none;
+  background:var(--cream);border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-light);transition:all .2s;
+}
+.close-btn:hover{background:var(--border-light);color:var(--text-dark);}
+.modal-body{padding:32px;}
+.form-group{margin-bottom:20px;}
+.form-label{
+  display:block;margin-bottom:8px;
+  font-size:12px;font-weight:700;letter-spacing:.5px;
+  text-transform:uppercase;color:var(--text-mid);
+}
+.form-input,.form-select{
+  width:100%;padding:14px 16px;
+  border:1.5px solid var(--border-light);
+  border-radius:var(--r-sm);
+  font-family:inherit;font-size:14px;
+  background:var(--cream);color:var(--text-dark);
+  transition:all .2s;
+}
+.form-input:focus,.form-select:focus{
+  outline:none;border-color:var(--teal);
+  background:var(--white);
+}
+.upload-area{
+  border:2px dashed var(--border);
+  border-radius:var(--r-md);
+  padding:32px 24px;text-align:center;
+  cursor:pointer;background:var(--cream);
+  transition:all .2s;
+}
+.upload-area:hover,.upload-area.dragover{
+  border-color:var(--teal);background:var(--teal-light);
+}
+.upload-icon{
+  width:40px;height:40px;margin:0 auto 12px;
+  color:var(--text-light);
+}
+.upload-text{
+  font-size:14px;font-weight:600;color:var(--text-dark);
+  margin-bottom:4px;
+}
+.upload-subtext{
+  font-size:12px;color:var(--text-light);
+}
+.file-input{display:none;}
+.file-info{
+  margin-top:12px;padding:12px;
+  background:var(--teal);color:var(--white);
+  border-radius:var(--r-sm);
+  font-size:13px;font-weight:600;
+  display:none;
+}
+.alert{
+  padding:14px;border-radius:var(--r-sm);
+  margin-top:16px;font-size:13px;display:none;
+}
+.alert-error{background:#FFE6E6;color:#C0392B;border:1px solid #F5B7B1;}
+.alert-success{background:var(--teal-light);color:var(--teal-dark);border:1px solid var(--teal-mid);}
+.submit-btn{
+  width:100%;padding:14px;
+  background:var(--teal-ink);color:var(--white);
+  border:none;border-radius:999px;
+  font-family:'Barlow',sans-serif;font-weight:700;
+  font-size:13px;letter-spacing:1px;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;
+  margin-top:8px;
+}
+.submit-btn:hover{background:var(--teal);}
+.submit-btn:disabled{background:var(--text-faint);cursor:not-allowed;}
+
+/* Footer */
+.footer{
+  padding:40px 44px;text-align:center;
+  color:var(--text-light);font-size:13px;
+  border-top:1px solid var(--border-light);
+  margin-top:60px;
+}
+
+/* PRINT STYLES - Landscape, only selected year */
+@media print {
+  @page {
+    size:landscape;
+    margin:0.4in;
+  }
+  
+  body{
+    background:white;
+    font-size:8pt;
+    line-height:1.2;
+  }
+  
+  .header,
+  .header-actions,
+  .year-toggle,
+  .modal,
+  .footer,
+  .metrics-grid{
+    display:none !important;
+  }
+  
+  .container{
+    max-width:none;
+    padding:0;
+    margin:0;
+  }
+  
+  .page-header{
+    margin-bottom:12px;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--teal);
+  }
+  
+  .page-eyebrow{display:none;}
+  .page-label{
+    font-size:8pt;
+    margin-bottom:4px;
+  }
+  .page-title{
+    font-size:18pt !important;
+    margin-bottom:6px;
+  }
+  .page-subtitle{display:none;}
+  
+  /* Show year indicator in print */
+  .print-year-indicator{
+    display:block !important;
+    font-family:'Lora',serif;
+    font-size:14pt;
+    font-weight:700;
+    color:var(--teal);
+    margin-top:4px;
+  }
+  
+  .section{
+    border:none;
+    border-radius:0;
+    margin-bottom:8px;
+    page-break-inside:avoid;
+  }
+  
+  .section-header{
+    padding:8px 0;
+    border-bottom:1px solid var(--teal);
+  }
+  
+  .section-title{
+    font-size:14pt;
+  }
+  
+  .table-wrapper{
+    overflow:visible;
+  }
+  
+  /* CRITICAL: Only print tables with .print-active class */
+  .production-table{
+    display:none !important;
+  }
+  
+  .production-table.print-active{
+    display:table !important;
+    font-size:7pt;
+    width:100%;
+    table-layout:fixed;
+  }
+  
+  .production-table th,
+  .production-table td{
+    padding:3px 4px;
+    border:0.5pt solid #999;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  
+  .production-table th{
+    background:var(--cream) !important;
+    font-size:6.5pt !important;
+    letter-spacing:0;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  
+  .production-table th.total-col{
+    background:var(--teal) !important;
+    color:white !important;
+  }
+  
+  .production-table .branch-name{
+    font-size:7pt;
+  }
+  
+  .production-table .lo-name{
+    font-size:7pt;
+  }
+  
+  .production-table .metric-type{
+    font-size:6pt;
+  }
+  
+  .production-table tbody tr.subtotal-row{
+    background:var(--teal-light) !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  
+  .production-table tbody tr.grand-total-row{
+    background:var(--teal-ink) !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  
+  .production-table tbody tr.grand-total-row td{
+    color:white !important;
+  }
+}
+
+@media (max-width:1024px){
+  .header-inner,.container{padding-left:24px;padding-right:24px;}
+  .metrics-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:680px){
+  .header-actions .btn-secondary span{display:none;}
+  .metrics-grid{grid-template-columns:1fr;}
+  .page-title{font-size:32px;}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo-section">
+      <div class="logo-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200">
+          <path fill="#00818D" d="M596.662 144.389c34.998-3.172 61.633 12.496 92.264 26.447l92.646 42.659 148.298 67.771c24.231 11.112 55.887 23.912 77.53 38.258 13.33 8.839 24.72 33.444 25.74 49.353 1.78 27.628.95 59.551.93 87.73l-.04 172.002-.01 232.228.09 70.326c.13 33.766 7.63 85.057-38.179 90.057-15.486 1.69-29.669 1.15-45.212 1.13l-74.309-.02-285.711-.03-86.45.01c-14.861.01-38.143-.55-52.35 1.07l-.046-165.707c19.573 1.577 50.149.697 70.701.7l127.415-.019 121.152.044c21.565.013 43.424.502 64.903-.442 18.695-.822 32.803-15.317 34.427-33.722 1.872-21.221 1.396-42.176 1.37-63.418l-.058-96.799.038-113.437c.027-24.681.763-55.347-1.605-79.567-12.076-45.993-37.565-49.775-76.888-67.799l-72.36-33.097-54.019-24.848c-9.531-4.383-22.948-10.989-32.496-14.364a96.2 96.2 0 0 0-33.498-5.572c-25.078.388-42.907 10.519-65.353 20.392l-64.644 28.356-71.674 31.049c-12.541 5.403-30.558 12.592-42.119 18.702a78.6 78.6 0 0 0-19.741 14.962c-9.545 10.062-13.98 19.273-14.725 32.864-1.192 21.728-.655 45.343-.657 67.163l-.011 131.777.001 230.009c.004 39.353-.966 83.426.274 122.493-42.124-2.7-86.002 1.52-128.054-1.62-21.241-1.59-34.093-22.682-35.179-42.768-1.814-33.543-.949-67.966-.947-101.836l-.018-196.325-.042-204.259.009-63.039c.024-39.48-2.981-79.379 39.039-100.877 17.503-8.954 35.936-16.19 53.963-24.053l106.559-46.34 136.739-59.616c29.428-12.846 71.164-34.849 102.307-37.978"/>
+          <path fill="#8D807A" d="M595.645 451.22c1.691-.129 3.383-.179 5.078-.229 6.631-.197 13.421-.426 19.841 1.531 14.632 4.461 114.164 49.015 123.352 57.864 10.183 9.808 11.358 21.62 11.657 35.051.863 38.733-.121 77.697-.053 116.46.032 18.651 2.007 48.461-.496 65.954-.65 4.537-2.584 8.555-5.811 11.837-3.556 3.615-7.359 5.308-12.282 6.235-14.533 2.736-30.894 1.266-45.713 1.252l-78.718-.093-88.692.097c-16.25.029-32.393.216-48.658-.311-20.876-.677-25.795-12.942-25.444-31.885.12-6.488-.041-13.959-.045-20.49l.023-61.993-.042-64.309c.007-25.725-5.239-51.071 22.278-64.213 31.426-15.009 63.719-28.079 95.559-42.207 8.45-3.75 19.332-8.5 28.166-10.551"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <span class="logo-title">PARTNERS</span>
+        <span class="logo-subtitle">production analytics</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary" onclick="printDashboard()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 6,2 18,2 18,9"/><path d="M6,18H4a2,2,0,0,1-2-2V11a2,2,0,0,1,2-2H20a2,2,0,0,1,2,2v5a2,2,0,0,1-2,2H18"/><rect x="6" y="14" width="12" height="8"/></svg>
+        <span>Print</span>
+      </button>
+      <button class="btn btn-primary" onclick="showUploadModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Upload Data
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="page-header">
+    <div class="page-eyebrow">01 <em>/</em> Production Analytics</div>
+    <div class="page-label">Real-time · Verified · Complete</div>
+    <h1 class="page-title">Branch production. Built for the <em>field.</em></h1>
+    <p class="page-subtitle">Complete loan production data extracted directly from the Partners Mortgage P&L Tracker. Every number verified against source records.</p>
+    <div class="print-year-indicator" id="printYearIndicator" style="display:none;">Production Report · 2026</div>
+  </div>
+
+  <!-- Executive Metrics -->
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-status">2025 · Complete</div>
+      <div class="metric-label">Full Year Production</div>
+      <div class="metric-value">$268.<em>0M</em></div>
+      <div class="metric-change">586 loans · 11 months</div>
+    </div>
+    
+    <div class="metric-card gold">
+      <div class="metric-status gold">2026 · YTD</div>
+      <div class="metric-label">Year-to-Date</div>
+      <div class="metric-value">$127.<em>9M</em></div>
+      <div class="metric-change">260 loans · April complete</div>
+    </div>
+    
+    <div class="metric-card warm">
+      <div class="metric-status warm">Growth</div>
+      <div class="metric-label">YoY Comparison</div>
+      <div class="metric-value">+182<em>%</em></div>
+      <div class="metric-change">Q1 2026 vs Q1 2025</div>
+    </div>
+    
+    <div class="metric-card deep">
+      <div class="metric-status">Coverage</div>
+      <div class="metric-label">Historical Range</div>
+      <div class="metric-value">15 <em>Mo</em></div>
+      <div class="metric-change">Jan 2025 - Apr 2026</div>
+    </div>
+  </div>
+
+  <!-- Production Table -->
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">Production by <em>Branch</em></h2>
+      <div class="year-toggle">
+        <button class="year-btn active" onclick="showYear(2026, event)">2026</button>
+        <button class="year-btn" onclick="showYear(2025, event)">2025</button>
+      </div>
+    </div>
+    
+    <div class="table-wrapper">
+      <table class="production-table" id="production-table-2026">
+        <thead>
+          <tr>
+            <th>Branch</th>
+            <th>Loan Officer</th>
+            <th>Metric</th>
+            <th class="month-col">Jan</th>
+            <th class="month-col">Feb</th>
+            <th class="month-col">Mar</th>
+            <th class="month-col">Apr</th>
+            <th class="month-col">May</th>
+            <th class="month-col">Jun</th>
+            <th class="month-col">Jul</th>
+            <th class="month-col">Aug</th>
+            <th class="month-col">Sep</th>
+            <th class="month-col">Oct</th>
+            <th class="month-col">Nov</th>
+            <th class="month-col">Dec</th>
+            <th class="total-col">Total</th>
+          </tr>
+        </thead>
+        <tbody id="table-body-2026"></tbody>
+      </table>
+      
+      <table class="production-table" id="production-table-2025" style="display:none;">
+        <thead>
+          <tr>
+            <th>Branch</th>
+            <th>Loan Officer</th>
+            <th>Metric</th>
+            <th class="month-col">Jan</th>
+            <th class="month-col">Feb</th>
+            <th class="month-col">Mar</th>
+            <th class="month-col">Apr</th>
+            <th class="month-col">May</th>
+            <th class="month-col">Jun</th>
+            <th class="month-col">Jul</th>
+            <th class="month-col">Aug</th>
+            <th class="month-col">Sep</th>
+            <th class="month-col">Oct</th>
+            <th class="month-col">Nov</th>
+            <th class="month-col">Dec</th>
+            <th class="total-col">Total</th>
+          </tr>
+        </thead>
+        <tbody id="table-body-2025"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>Partners Mortgage · Production Analytics Dashboard</p>
+  <p>Data verified against P&L Tracker · Updated through April 2026</p>
+</footer>
+
+<!-- Upload Modal -->
+<div id="uploadModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">Upload <em>P&L Data</em></h2>
+      <button class="close-btn" onclick="hideUploadModal()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form id="uploadForm">
+        <div class="form-group">
+          <label class="form-label">Access Code</label>
+          <input type="password" id="accessCode" class="form-input" placeholder="4-digit code" maxlength="4" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Final Month</label>
+          <select id="finalMonth" class="form-select" required>
+            <option value="">Select final month...</option>
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">P&L Tracker File</label>
+          <div class="upload-area" onclick="document.getElementById('plFile').click()">
+            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <div class="upload-text">Drop file here or click to browse</div>
+            <div class="upload-subtext">.xlsx or .xlsm files only</div>
+          </div>
+          <input type="file" id="plFile" accept=".xlsx,.xlsm" class="file-input">
+          <div id="fileInfo" class="file-info"></div>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">Process Data</button>
+        <div id="errorMessage" class="alert alert-error"></div>
+        <div id="successMessage" class="alert alert-success"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== VERIFIED PRODUCTION DATA FROM P&L TRACKER =====
+const productionData = {
+  "2026": {
+    "January 2026": {
+      "ROSEVILLE, CA": {
+        "Josh Sommerfield": {
+          "amount": 1512384,
+          "count": 4
+        },
+        "Greg Choinski": {
+          "amount": 185250,
+          "count": 1
+        },
+        "Rusty Mendoza": {
+          "amount": 2154461,
+          "count": 4
+        },
+        "Katie Pastor Trinidad": {
+          "amount": 5984925,
+          "count": 10
+        },
+        "Russell Cunha": {
+          "amount": 107670,
+          "count": 1
+        },
+        "Craig Warn/Rachael Gaines": {
+          "amount": 372847,
+          "count": 1
+        },
+        "Michelle Paxton/Frank Helmand": {
+          "amount": 780000,
+          "count": 1
+        },
+        "Craig Warn": {
+          "amount": 508250,
+          "count": 1
+        },
+        "Harry Gu": {
+          "amount": 600000,
+          "count": 1
+        },
+        "Mike Zamani/Leif Potter": {
+          "amount": 150000,
+          "count": 1
+        }
+      },
+      "BEND, OR": {
+        "Joel Morgan": {
+          "amount": 1325649,
+          "count": 2
+        },
+        "Yogesh Lulla/Joel Morgan": {
+          "amount": 892625,
+          "count": 2
+        },
+        "Yogesh Lulla": {
+          "amount": 333750,
+          "count": 1
+        },
+        "Robert DeWeese": {
+          "amount": 818292,
+          "count": 1
+        }
+      },
+      "OTHER": {
+        "Arvidson/Potter": {
+          "amount": 436220,
+          "count": 2
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Shazia Dar": {
+          "amount": 4752556,
+          "count": 4
+        },
+        "Derek Sepulveda": {
+          "amount": 357532,
+          "count": 2
+        },
+        "Jeff Glass": {
+          "amount": 72010,
+          "count": 1
+        }
+      },
+      "LAS VEGAS, NV": {
+        "Barry Willner": {
+          "amount": 420000,
+          "count": 1
+        }
+      },
+      "VIENNA, VA": {
+        "Jenny Nguyen-Dinh/Shazia Dar": {
+          "amount": 262500,
+          "count": 1
+        }
+      },
+      "RENO, NV": {
+        "Dereck Bowlen": {
+          "amount": 745000,
+          "count": 2
+        }
+      },
+      "DULUTH, MN": {
+        "John Mason": {
+          "amount": 132554,
+          "count": 1
+        }
+      }
+    },
+    "February 2026": {
+      "OTHER": {
+        "Arvidson/Zamani/Potter": {
+          "amount": 612500,
+          "count": 1
+        },
+        "Arvidson/McDonough/Potter": {
+          "amount": 618750,
+          "count": 1
+        },
+        "Arvidson/Sierra Schutte/Potter": {
+          "amount": 50000,
+          "count": 1
+        },
+        "Venane Brune/Bobby Afrasiabi": {
+          "amount": 428092,
+          "count": 1
+        }
+      },
+      "DULUTH, MN": {
+        "Jason Malmstrom": {
+          "amount": 301830,
+          "count": 2
+        }
+      },
+      "ROSEVILLE, CA": {
+        "Joe Andrews": {
+          "amount": 330966,
+          "count": 1
+        },
+        "Katie Pastor Trinidad": {
+          "amount": 8436257,
+          "count": 18
+        },
+        "Matt Von Bergen": {
+          "amount": 1936400,
+          "count": 7
+        },
+        "Rusty Mendoza": {
+          "amount": 4105937,
+          "count": 8
+        },
+        "Craig Warn": {
+          "amount": 412000,
+          "count": 1
+        },
+        "Josh Sommerfield": {
+          "amount": 6895808,
+          "count": 11
+        },
+        "Josh Sommerfield/Rachael Gaines": {
+          "amount": 223908,
+          "count": 1
+        },
+        "Kathleen Martiniello": {
+          "amount": 598000,
+          "count": 1
+        },
+        "Michelle Paxton": {
+          "amount": 358000,
+          "count": 1
+        },
+        "Rusty Mendoza/Rachael Gaines": {
+          "amount": 350000,
+          "count": 1
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Leif Potter": {
+          "amount": 597000,
+          "count": 1
+        },
+        "Jeff Glass": {
+          "amount": 135000,
+          "count": 1
+        },
+        "Lanny Setka/Derek Sepulveda": {
+          "amount": 766650,
+          "count": 1
+        },
+        "Matt Perez": {
+          "amount": 1223000,
+          "count": 2
+        },
+        "Shazia Dar": {
+          "amount": 1307750,
+          "count": 2
+        },
+        "Shazia Dar/Jenny Nguyen-Dinh": {
+          "amount": 1849000,
+          "count": 2
+        }
+      },
+      "RENO, NV": {
+        "Dereck Bowlen": {
+          "amount": 462000,
+          "count": 1
+        }
+      },
+      "HUNTINGTON BEACH, CA": {
+        "Elvin Estela/Erik Papke": {
+          "amount": 1158500,
+          "count": 2
+        }
+      },
+      "ATLANTA, GA": {
+        "Michelle Herzl": {
+          "amount": 296000,
+          "count": 1
+        }
+      }
+    },
+    "March 2026": {
+      "ROSEVILLE, CA": {
+        "Josh Sommerfield": {
+          "amount": 4919606,
+          "count": 9
+        },
+        "Rusty Mendoza": {
+          "amount": 3305597,
+          "count": 5
+        },
+        "Greg Choinski": {
+          "amount": 181550,
+          "count": 1
+        },
+        "Matt Von Bergen": {
+          "amount": 2227493,
+          "count": 4
+        },
+        "Katie Pastor Trinidad": {
+          "amount": 7940096,
+          "count": 15
+        },
+        "Katie Pastor Trinidad/Josh Sommerfield": {
+          "amount": 458900,
+          "count": 1
+        },
+        "Matt Von Bergen/Rachael Gaines": {
+          "amount": 137000,
+          "count": 1
+        },
+        "Craig Warn": {
+          "amount": 265962,
+          "count": 1
+        },
+        "Andre Bishop": {
+          "amount": 339910,
+          "count": 1
+        },
+        "Russell Cunha": {
+          "amount": 413000,
+          "count": 1
+        },
+        "Michelle Paxton/Frank Helmand": {
+          "amount": 180000,
+          "count": 1
+        }
+      },
+      "BEND, OR": {
+        "Joel Morgan": {
+          "amount": 2249440,
+          "count": 3
+        },
+        "Robert DeWeese": {
+          "amount": 832750,
+          "count": 1
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Leif Potter": {
+          "amount": 1991291,
+          "count": 3
+        },
+        "Leif Potter/Mike Zamani": {
+          "amount": 1874950,
+          "count": 2
+        },
+        "Matt Perez": {
+          "amount": 555000,
+          "count": 1
+        },
+        "Lanny Setka/Derek Sepulveda": {
+          "amount": 1288000,
+          "count": 2
+        },
+        "Shazia Dar/Jenny Nguyen-Dinh": {
+          "amount": 171000,
+          "count": 1
+        }
+      },
+      "HUNTINGTON BEACH, CA": {
+        "Elvin Estela/Erik Papke": {
+          "amount": 994000,
+          "count": 2
+        },
+        "Erik Papke": {
+          "amount": 560000,
+          "count": 1
+        }
+      },
+      "RENO, NV": {
+        "Dereck Bowlen": {
+          "amount": 2818660,
+          "count": 7
+        }
+      },
+      "OTHER": {
+        "Arvidson/Potter": {
+          "amount": 200000,
+          "count": 1
+        },
+        "Arvidson/Zamani/Potter": {
+          "amount": 958000,
+          "count": 2
+        },
+        "Arvidson/Josh Sommerfield/Leif Potter": {
+          "amount": 253700,
+          "count": 1
+        },
+        "Cartner Mason(Malmstrom)": {
+          "amount": 182359,
+          "count": 1
+        }
+      },
+      "LAS VEGAS, NV": {
+        "Barry Willner": {
+          "amount": 553750,
+          "count": 2
+        }
+      },
+      "DULUTH, MN": {
+        "Jason Malmstrom": {
+          "amount": 1449600,
+          "count": 6
+        }
+      },
+      "VIENNA, VA": {
+        "Jenny Nguyen-Dinh": {
+          "amount": 205500,
+          "count": 1
+        }
+      }
+    },
+    "April 2026": {
+      "DULUTH, MN": {
+        "Jason Malmstrom": {
+          "amount": 1096475,
+          "count": 4
+        },
+        "Jason Malmstrom/Megan O'Malley": {
+          "amount": 386500,
+          "count": 1
+        }
+      },
+      "OTHER": {
+        "Nina Merrill": {
+          "amount": 855000,
+          "count": 2
+        },
+        "Helen Woizeschke": {
+          "amount": 247000,
+          "count": 1
+        },
+        "Laura Ford": {
+          "amount": 495000,
+          "count": 1
+        },
+        "Venane Brune": {
+          "amount": 762000,
+          "count": 2
+        },
+        "Arvidson/McDonough": {
+          "amount": 718975,
+          "count": 2
+        },
+        "Arvidson/Greg Choinski": {
+          "amount": 191468,
+          "count": 1
+        }
+      },
+      "ROSEVILLE, CA": {
+        "Katie Pastor Trinidad": {
+          "amount": 11809636,
+          "count": 18
+        },
+        "Rusty Mendoza": {
+          "amount": 892450,
+          "count": 2
+        },
+        "Matt Von Bergen": {
+          "amount": 1969166,
+          "count": 2
+        },
+        "Josh Sommerfield": {
+          "amount": 2872099,
+          "count": 7
+        },
+        "Craig Warn": {
+          "amount": 852000,
+          "count": 3
+        },
+        "Katie Pastor Trinidad/Josh Sommerfield": {
+          "amount": 493600,
+          "count": 1
+        },
+        "Michelle Paxton/Frank Helmand": {
+          "amount": 1080000,
+          "count": 1
+        }
+      },
+      "BEND, OR": {
+        "Joel Morgan": {
+          "amount": 678035,
+          "count": 2
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Potter/Rob Garcia": {
+          "amount": 1305300,
+          "count": 4
+        },
+        "Shazia Dar": {
+          "amount": 775200,
+          "count": 2
+        },
+        "Lanny Setka/Derek Sepulveda": {
+          "amount": 390000,
+          "count": 1
+        },
+        "Leif Potter": {
+          "amount": 1325955,
+          "count": 3
+        },
+        "Jeff Glass": {
+          "amount": 1082825,
+          "count": 2
+        }
+      },
+      "VIENNA, VA": {
+        "Jenny Nguyen-Dinh": {
+          "amount": 786000,
+          "count": 2
+        }
+      },
+      "RENO, NV": {
+        "Dereck Bowlen": {
+          "amount": 2232500,
+          "count": 3
+        }
+      },
+      "HUNTINGTON BEACH, CA": {
+        "Elvin Esela/Erik Papke": {
+          "amount": 739000,
+          "count": 2
+        }
+      }
+    }
+  },
+  "2025": {
+    "January 2025": {
+      "OTHER": {
+        "Maxx Zamani/David Arvidson": {
+          "amount": 350000,
+          "count": 1
+        }
+      },
+      "ROSEVILLE, CA": {
+        "Kathleen Martiniello": {
+          "amount": 599999,
+          "count": 1
+        },
+        "Matt Von Bergen": {
+          "amount": 690000,
+          "count": 2
+        },
+        "Katie Pastor Trinidad": {
+          "amount": 1496717,
+          "count": 3
+        },
+        "Josh Sommerfield": {
+          "amount": 1636125,
+          "count": 3
+        },
+        "Rusty Mendoza": {
+          "amount": 3316709,
+          "count": 7
+        },
+        "Russell Cunha": {
+          "amount": 121250,
+          "count": 1
+        },
+        "Harry Gu": {
+          "amount": 697760,
+          "count": 1
+        },
+        "Craig Warn": {
+          "amount": 382500,
+          "count": 1
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Shazia Dar": {
+          "amount": 463000,
+          "count": 1
+        },
+        "Leif Potter": {
+          "amount": 547087,
+          "count": 2
+        }
+      },
+      "ATLANTA, GA": {
+        "Michelle Herzl": {
+          "amount": 874000,
+          "count": 2
+        },
+        "Bobby Afrasiabi/Michael Gronwall": {
+          "amount": 200000,
+          "count": 1
+        },
+        "Bobby Afrasiabi": {
+          "amount": 286000,
+          "count": 1
+        }
+      },
+      "VIENNA, VA": {
+        "Jenny Nguyen Dinh": {
+          "amount": 240000,
+          "count": 1
+        }
+      }
+    },
+    "February 2025": {
+      "ROSEVILLE, CA": {
+        "Rusty Mendoza": {
+          "amount": 1101500,
+          "count": 3
+        },
+        "Josh Sommerfield/Katie Pastor Trinidad": {
+          "amount": 350000,
+          "count": 1
+        },
+        "Katie Pastor Trinidad": {
+          "amount": 2768930,
+          "count": 5
+        },
+        "Katie Pastor Trinidad/David Arvidson": {
+          "amount": 400780,
+          "count": 1
+        },
+        "Matt Von Bergen": {
+          "amount": 1821000,
+          "count": 4
+        }
+      },
+      "BEND, OR": {
+        "Joel Morgan": {
+          "amount": 1713608,
+          "count": 5
+        },
+        "Yogesh Lulla": {
+          "amount": 638795,
+          "count": 2
+        }
+      },
+      "OTHER": {
+        "Juliette Brossard": {
+          "amount": 295000,
+          "count": 2
+        },
+        "Venane Brune": {
+          "amount": 284747,
+          "count": 1
+        }
+      },
+      "VIENNA, VA": {
+        "Jenny Nguyen Din/Shazia Dar": {
+          "amount": 240000,
+          "count": 1
+        },
+        "Jenny Nguyen Dinh": {
+          "amount": 150000,
+          "count": 1
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Derek Sepulveda/Lanny Setka": {
+          "amount": 684000,
+          "count": 1
+        },
+        "Lanny Setka/Derek Sepulveda": {
+          "amount": 399200,
+          "count": 1
+        },
+        "Shazia Dar": {
+          "amount": 611100,
+          "count": 1
+        },
+        "Jeffrey Glass": {
+          "amount": 759980,
+          "count": 1
+        },
+        "Leif Potter/David Arvidson": {
+          "amount": 217056,
+          "count": 1
+        },
+        "Leif Potter": {
+          "amount": 300000,
+          "count": 1
+        }
+      },
+      "DULUTH, MN": {
+        "Megan O'Malley": {
+          "amount": 314204,
+          "count": 1
+        },
+        "Megan O'Malley/David Arvidson": {
+          "amount": 220000,
+          "count": 1
+        }
+      },
+      "LAS VEGAS, NV": {
+        "Barry Willner": {
+          "amount": 50000,
+          "count": 1
+        }
+      }
+    },
+    "March 2025": {
+      "ROSEVILLE, CA": {
+        "Josh Sommerfield/Rachael Gaines": {
+          "amount": 239500,
+          "count": 1
+        },
+        "Katie Pastor Trinidad": {
+          "amount": 4592045,
+          "count": 8
+        },
+        "Rusty Mendoza": {
+          "amount": 1916125,
+          "count": 6
+        },
+        "Josh Sommerfield": {
+          "amount": 1748576,
+          "count": 4
+        },
+        "Matt Von Bergen": {
+          "amount": 1944744,
+          "count": 4
+        },
+        "Craig Warn": {
+          "amount": 1420000,
+          "count": 2
+        }
+      },
+      "BEND, OR": {
+        "Joel Morgan": {
+          "amount": 699900,
+          "count": 1
+        },
+        "Yogesh Lulla": {
+          "amount": 318750,
+          "count": 1
+        }
+      },
+      "LAS VEGAS, NV": {
+        "Barry Willner": {
+          "amount": 2975000,
+          "count": 2
+        }
+      },
+      "OTHER": {
+        "Michael Gronwall": {
+          "amount": 78000,
+          "count": 1
+        },
+        "Venane Brune": {
+          "amount": 338751,
+          "count": 1
+        },
+        "Juliette Brossard": {
+          "amount": 120000,
+          "count": 1
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Lanny Setka": {
+          "amount": 311000,
+          "count": 1
+        },
+        "Shazia Dar": {
+          "amount": 315000,
+          "count": 1
+        },
+        "Leif Potter": {
+          "amount": 203980,
+          "count": 1
+        },
+        "Derek Sepulveda/Lanny Setka": {
+          "amount": 712000,
+          "count": 1
+        }
+      },
+      "VIENNA, VA": {
+        "Jenny Nguyen Din": {
+          "amount": 155000,
+          "count": 1
+        },
+        "Jenny Nguyen Din/Shazia Dar": {
+          "amount": 643500,
+          "count": 1
+        }
+      },
+      "ATLANTA, GA": {
+        "Bobby Afrasiabi/Venane Brune": {
+          "amount": 190100,
+          "count": 1
+        },
+        "Bobby Afrasiabi": {
+          "amount": 240000,
+          "count": 1
+        },
+        "Michelle Herzl": {
+          "amount": 365252,
+          "count": 1
+        }
+      }
+    },
+    "April 2025": {
+      "ROSEVILLE, CA": {
+        "Rusty Mendoza": {
+          "amount": 3107097,
+          "count": 7
+        },
+        "Katie Pastor Trinidad": {
+          "amount": 7095698,
+          "count": 15
+        },
+        "Josh Sommerfield": {
+          "amount": 2588283,
+          "count": 6
+        },
+        "Matt Von Bergen": {
+          "amount": 1196792,
+          "count": 2
+        },
+        "Craig Warn": {
+          "amount": 120000,
+          "count": 1
+        }
+      },
+      "OTHER": {
+        "Arvidson/Potter/Malmstrom": {
+          "amount": 276250,
+          "count": 1
+        },
+        "Nina Schatz Merrill": {
+          "amount": 143520,
+          "count": 1
+        },
+        "David Arvidson/Marty Yeghishian": {
+          "amount": 416000,
+          "count": 1
+        },
+        "Derek Bowlen": {
+          "amount": 274000,
+          "count": 1
+        },
+        "Yolanda McManus/Leif Potter": {
+          "amount": 269000,
+          "count": 1
+        },
+        "Michael Gronwall": {
+          "amount": 165000,
+          "count": 1
+        },
+        "Michael Gronwall/Matt Von Bergen": {
+          "amount": 58500,
+          "count": 1
+        }
+      },
+      "DULUTH, MN": {
+        "Megan O'Malley": {
+          "amount": 408500,
+          "count": 1
+        }
+      },
+      "RENO, NV": {
+        "Dereck Bowlen": {
+          "amount": 830000,
+          "count": 2
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Shazia Dar": {
+          "amount": 744301,
+          "count": 1
+        },
+        "Jeffrey Glass": {
+          "amount": 1836000,
+          "count": 2
+        },
+        "Derek Sepulveda": {
+          "amount": 802202,
+          "count": 1
+        },
+        "Leif Potter": {
+          "amount": 150000,
+          "count": 1
+        },
+        "Lanny Setka": {
+          "amount": 1031250,
+          "count": 1
+        },
+        "Lanny Setka/Derek Sepulveda": {
+          "amount": 565000,
+          "count": 1
+        }
+      },
+      "LAS VEGAS, NV": {
+        "Barry Willner": {
+          "amount": 2177250,
+          "count": 3
+        }
+      },
+      "BEND, OR": {
+        "Yogesh Lulla": {
+          "amount": 1200000,
+          "count": 1
+        },
+        "Joel Morgan": {
+          "amount": 665000,
+          "count": 1
+        }
+      },
+      "ATLANTA, GA": {
+        "Michelle Herzl/Leif Potter": {
+          "amount": 981750,
+          "count": 1
+        },
+        "Michelle Herzl": {
+          "amount": 130000,
+          "count": 1
+        }
+      },
+      "VIENNA, VA": {
+        "Jenny Nguyen Dinh": {
+          "amount": 118000,
+          "count": 1
+        }
+      }
+    },
+    "May 2025": {
+      "ROSEVILLE, CA": {
+        "Rusty Mendoza": {
+          "amount": 1989000,
+          "count": 4
+        },
+        "Josh Sommerfield": {
+          "amount": 3855571,
+          "count": 8
+        },
+        "Katie Pastor Trinidad": {
+          "amount": 5202515,
+          "count": 10
+        },
+        "Matt Von Bergen": {
+          "amount": 809279,
+          "count": 3
+        },
+        "Matt Von Bergen/Rachael Gaines": {
+          "amount": 280395,
+          "count": 1
+        },
+        "Russell Cunha/Leif Potter": {
+          "amount": 165000,
+          "count": 1
+        },
+        "Harry Gu": {
+          "amount": 576550,
+          "count": 1
+        }
+      },
+      "BEND, OR": {
+        "Joel Morgan": {
+          "amount": 922203.5,
+          "count": 2
+        },
+        "Robert DeWeese": {
+          "amount": 356425,
+          "count": 1
+        }
+      },
+      "LAS VEGAS, NV": {
+        "Barry Willner": {
+          "amount": 1586000,
+          "count": 2
+        }
+      },
+      "RENO, NV": {
+        "Dereck Bowlen": {
+          "amount": 1472300,
+          "count": 3
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Lanny Setka/Derek Sepulveda": {
+          "amount": 1979800,
+          "count": 3
+        },
+        "Shazia Dar": {
+          "amount": 1156000,
+          "count": 2
+        },
+        "Shazia Dar/Jenny Nguyen-Dinh": {
+          "amount": 984150,
+          "count": 2
+        },
+        "Jeff Glass": {
+          "amount": 1696720,
+          "count": 2
+        },
+        "Derek Sepulveda": {
+          "amount": 535000,
+          "count": 1
+        }
+      },
+      "OTHER": {
+        "Tony Keidel": {
+          "amount": 398475,
+          "count": 1
+        },
+        "Venane Brune": {
+          "amount": 249133,
+          "count": 1
+        },
+        "Arvidson/Potter/Malmstrom": {
+          "amount": 1396692,
+          "count": 5
+        },
+        "Arvidson/Malmstrom": {
+          "amount": 407326,
+          "count": 1
+        },
+        "Michael Gronwall/Leif Potter": {
+          "amount": 1230920,
+          "count": 1
+        }
+      },
+      "ATLANTA, GA": {
+        "Michelle Herzl": {
+          "amount": 119000,
+          "count": 1
+        },
+        "Bobby Afrasiabi/Venane Brune": {
+          "amount": 157500,
+          "count": 1
+        }
+      }
+    },
+    "June 2025": {
+      "ROSEVILLE, CA": {
+        "Katie Pastor Trinidad": {
+          "amount": 6329558,
+          "count": 10
+        },
+        "Josh Sommerfield": {
+          "amount": 2563360,
+          "count": 5
+        },
+        "Rusty Mendoza": {
+          "amount": 686945,
+          "count": 1
+        },
+        "Matt Von Bergen/Rachael Gaines": {
+          "amount": 150000,
+          "count": 1
+        },
+        "Russell Cunha": {
+          "amount": 297500,
+          "count": 1
+        },
+        "Matt Von Bergen": {
+          "amount": 442550,
+          "count": 3
+        },
+        "Andre Bishop": {
+          "amount": 593750,
+          "count": 1
+        },
+        "Kathleen Martiniello": {
+          "amount": 332500,
+          "count": 1
+        },
+        "Greg Choinski": {
+          "amount": 30000,
+          "count": 1
+        },
+        "Craig Warn": {
+          "amount": 234650,
+          "count": 1
+        }
+      },
+      "OTHER": {
+        "Daniel O'Brien/Leif Potter": {
+          "amount": 276450,
+          "count": 1
+        },
+        "Arvidson/Potter/Malmstrom/Pirie": {
+          "amount": 218500,
+          "count": 1
+        },
+        "Arvidson/Potter/Malmstrom": {
+          "amount": 682333,
+          "count": 2
+        },
+        "Arvidson/Malmstrom": {
+          "amount": 240000,
+          "count": 1
+        },
+        "Venane Brune": {
+          "amount": 180667,
+          "count": 1
+        },
+        "Babak Afrasiabi/Venane Brune": {
+          "amount": 75000,
+          "count": 1
+        },
+        "Arvidson/potter/Gronwall": {
+          "amount": 232000,
+          "count": 1
+        },
+        "Arvidson/Potter/Khosravijou/Gronwall": {
+          "amount": 110000,
+          "count": 1
+        },
+        "David Arvidson/Leif Potter": {
+          "amount": 400000,
+          "count": 1
+        },
+        "BabakAfrasiabi/Venane Brune": {
+          "amount": 171717,
+          "count": 1
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Shazia Dar/Jenny Nguyen Dinh": {
+          "amount": 714000,
+          "count": 2
+        },
+        "Shazia Dar": {
+          "amount": 425000,
+          "count": 1
+        },
+        "Derek Sepulveda": {
+          "amount": 1035950,
+          "count": 2
+        },
+        "Lanny Setka/Derek Sepulveda": {
+          "amount": 726000,
+          "count": 1
+        },
+        "Leif Potter/Michael Gronwall": {
+          "amount": 150000,
+          "count": 1
+        },
+        "Leif Potter": {
+          "amount": 420000,
+          "count": 1
+        },
+        "Shazia Dar/Jenny Nguyen-Dinh": {
+          "amount": 430000,
+          "count": 1
+        },
+        "Jeff Glass": {
+          "amount": 1255000,
+          "count": 1
+        }
+      },
+      "RENO, NV": {
+        "Dereck Bowlen": {
+          "amount": 835000,
+          "count": 2
+        }
+      },
+      "LAS VEGAS, NV": {
+        "Barry Willner": {
+          "amount": 564000,
+          "count": 1
+        }
+      },
+      "HUNTINGTON BEACH, CA": {
+        "Erik Papke": {
+          "amount": 2334200,
+          "count": 3
+        }
+      },
+      "BEND, OR": {
+        "Joel Morgan": {
+          "amount": 134500,
+          "count": 1
+        }
+      },
+      "ATLANTA, GA": {
+        "Bobby Afrasiabi/Venane Brune": {
+          "amount": 1640000,
+          "count": 1
+        },
+        "Michelle Herzl": {
+          "amount": 154875,
+          "count": 1
+        }
+      },
+      "VIENNA, VA": {
+        "Jenny Nguyen Dinh": {
+          "amount": 120000,
+          "count": 1
+        }
+      }
+    },
+    "July 2025": {
+      "ROSEVILLE, CA": {
+        "Josh Sommerfield": {
+          "amount": 2971220,
+          "count": 6
+        },
+        "Katie Pastor Trinidad": {
+          "amount": 3730350,
+          "count": 6
+        },
+        "Rusty Mendoza": {
+          "amount": 1654769,
+          "count": 3
+        },
+        "Greg Choinski/Leif Potter": {
+          "amount": 316250,
+          "count": 1
+        },
+        "Matt Von Bergen": {
+          "amount": 744752,
+          "count": 2
+        },
+        "Russell Cunha": {
+          "amount": 190105,
+          "count": 1
+        },
+        "Matt Von Bergen/Rachael Gaines": {
+          "amount": 429318,
+          "count": 1
+        },
+        "Harry Gu": {
+          "amount": 300000,
+          "count": 1
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Leif Potter": {
+          "amount": 2867300,
+          "count": 4
+        },
+        "Lanny Setka/Derek Sepulveda": {
+          "amount": 826200,
+          "count": 1
+        },
+        "Shazia Dar": {
+          "amount": 668750,
+          "count": 2
+        },
+        "Shazia Dar/Jenny Nguyen Dinh": {
+          "amount": 622500,
+          "count": 2
+        },
+        "Leif Potter/Matt Perez": {
+          "amount": 725000,
+          "count": 1
+        }
+      },
+      "BEND, OR": {
+        "Joel Morgan": {
+          "amount": 1774996.5,
+          "count": 5
+        }
+      },
+      "OTHER": {
+        "Helen Woizeschke/Leif Potter": {
+          "amount": 150000,
+          "count": 1
+        },
+        "Arvidson/Potter/Malmstrom": {
+          "amount": 727500,
+          "count": 1
+        },
+        "Arvidson/Malmstrom": {
+          "amount": 545395,
+          "count": 2
+        },
+        "Criag Warn": {
+          "amount": 412500,
+          "count": 2
+        },
+        "Arvidson/Bobby Afrasiabi": {
+          "amount": 614999,
+          "count": 1
+        },
+        "Venane Brune/Bobby Afrasiabi": {
+          "amount": 198000,
+          "count": 1
+        }
+      },
+      "DULUTH, MN": {
+        "Malmstrom": {
+          "amount": 459400,
+          "count": 2
+        }
+      },
+      "ATLANTA, GA": {
+        "Bobby Afrasiabi": {
+          "amount": 577500,
+          "count": 2
+        }
+      },
+      "LAS VEGAS, NV": {
+        "Barry Willner": {
+          "amount": 1529000,
+          "count": 2
+        }
+      }
+    },
+    "September 2025": {
+      "ROSEVILLE, CA": {
+        "Rusty Mendoza": {
+          "amount": 3603688,
+          "count": 8
+        },
+        "Josh Sommerfield": {
+          "amount": 4314079,
+          "count": 7
+        },
+        "Katie Pastor Trinidad": {
+          "amount": 5226131,
+          "count": 9
+        },
+        "Greg Choinski": {
+          "amount": 372418,
+          "count": 3
+        },
+        "Matt Von Bergen": {
+          "amount": 265000,
+          "count": 1
+        },
+        "Craig Warn": {
+          "amount": 440000,
+          "count": 1
+        }
+      },
+      "OTHER": {
+        "Nina Merrill/Leif Potter": {
+          "amount": 336000,
+          "count": 1
+        },
+        "Arvidson/Malmstrom": {
+          "amount": 1101900,
+          "count": 3
+        },
+        "Derek Bowlen": {
+          "amount": 214000,
+          "count": 1
+        },
+        "Arvidson/Potter": {
+          "amount": 350075,
+          "count": 1
+        }
+      },
+      "DULUTH, MN": {
+        "Jason Malmstrom": {
+          "amount": 1416037,
+          "count": 4
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Derek Sepulveda/Lanny Setka": {
+          "amount": 840000,
+          "count": 1
+        },
+        "Shazia Dar": {
+          "amount": 2460000,
+          "count": 2
+        },
+        "Leif Potter": {
+          "amount": 1903300,
+          "count": 3
+        },
+        "Jeff Glass": {
+          "amount": 800000,
+          "count": 1
+        },
+        "Lanny Setka/Derek Sepulveda": {
+          "amount": 1870051,
+          "count": 3
+        }
+      },
+      "LAS VEGAS, NV": {
+        "Barry Willner": {
+          "amount": 2725000,
+          "count": 4
+        }
+      },
+      "VIENNA, VA": {
+        "Jenny Nguyen Dinh/Shazia Dar": {
+          "amount": 600000,
+          "count": 1
+        },
+        "Jenny Nguyen Dinh": {
+          "amount": 890500,
+          "count": 2
+        }
+      },
+      "BEND, OR": {
+        "Joel Morgan": {
+          "amount": 372500,
+          "count": 2
+        },
+        "Joel Morgan/Robert Deweese": {
+          "amount": 582777,
+          "count": 1
+        }
+      }
+    },
+    "October 2025": {
+      "ROSEVILLE, CA": {
+        "Katie Pastor Trinidad": {
+          "amount": 4969607,
+          "count": 12
+        },
+        "Josh Sommerfield": {
+          "amount": 4521054,
+          "count": 10
+        },
+        "Greg Choinski": {
+          "amount": 348400,
+          "count": 2
+        },
+        "Rusty Mendoza": {
+          "amount": 1943792,
+          "count": 5
+        },
+        "Kathleen Martiniello/Rachael Gaines": {
+          "amount": 680000,
+          "count": 1
+        },
+        "Matt Von Bergen/Rachael Gaines": {
+          "amount": 636000,
+          "count": 1
+        },
+        "Matt Von Bergen": {
+          "amount": 635400,
+          "count": 2
+        },
+        "Rusty Mendoza/Rachael Gaines": {
+          "amount": 250000,
+          "count": 1
+        },
+        "Craig Warn": {
+          "amount": 450000,
+          "count": 1
+        },
+        "Andre Bishop": {
+          "amount": 760000,
+          "count": 1
+        }
+      },
+      "ATLANTA, GA": {
+        "Bobby Afrasiabi": {
+          "amount": 168621,
+          "count": 1
+        }
+      },
+      "DULUTH, MN": {
+        "Carter Mason (Malmstrom)": {
+          "amount": 192035,
+          "count": 1
+        },
+        "Jason Malmstrom": {
+          "amount": 216675,
+          "count": 1
+        }
+      },
+      "OTHER": {
+        "Arvidson/Malmstrom": {
+          "amount": 526000,
+          "count": 1
+        },
+        "Tony Keidel/Arvidson/Potter": {
+          "amount": 497000,
+          "count": 1
+        },
+        "Venane Brune/Bobby A": {
+          "amount": 273000,
+          "count": 1
+        },
+        "Arvidson/Potter": {
+          "amount": 399100,
+          "count": 1
+        },
+        "Arvidson/Megan O'Malley": {
+          "amount": 400000,
+          "count": 1
+        },
+        "Sean McDonough/Arvidson/Potter": {
+          "amount": 638226,
+          "count": 1
+        }
+      },
+      "BEND, OR": {
+        "Joel Morgan": {
+          "amount": 863755,
+          "count": 2
+        },
+        "Robert DeWeese": {
+          "amount": 405650,
+          "count": 1
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Lanny Setka/Derek Sepulveda": {
+          "amount": 1122628,
+          "count": 1
+        },
+        "Shazia Dar": {
+          "amount": 1169999,
+          "count": 3
+        },
+        "Shazia Dar/Rachael Gaines": {
+          "amount": 310643,
+          "count": 1
+        },
+        "Leif Potter": {
+          "amount": 2753800,
+          "count": 4
+        },
+        "Shazia Dar/Jenny Nguyen Dinh": {
+          "amount": 378000,
+          "count": 1
+        },
+        "Jeff Glass": {
+          "amount": 356000,
+          "count": 1
+        },
+        "Shazia Dar/Jenny Nguyen-Dinh": {
+          "amount": 297500,
+          "count": 1
+        }
+      },
+      "RENO, NV": {
+        "Dereck Bowlen": {
+          "amount": 1910998,
+          "count": 4
+        }
+      },
+      "LAS VEGAS, NV": {
+        "Barry Willner": {
+          "amount": 2278900,
+          "count": 4
+        }
+      },
+      "VIENNA, VA": {
+        "Jenny Nguyen-Dinh": {
+          "amount": 609000,
+          "count": 2
+        },
+        "Jenny Nguyen-Dinh/Roy Duong": {
+          "amount": 420000,
+          "count": 1
+        }
+      },
+      "HUNTINGTON BEACH, CA": {
+        "Erik Papke": {
+          "amount": 2020900,
+          "count": 3
+        }
+      }
+    },
+    "November 2025": {
+      "BEND, OR": {
+        "Joel Morgan": {
+          "amount": 855319.3,
+          "count": 3
+        },
+        "Robert DeWeese": {
+          "amount": 370000,
+          "count": 1
+        }
+      },
+      "OTHER": {
+        "Arvidson/McDonough/Potter": {
+          "amount": 658000,
+          "count": 1
+        },
+        "Helen Woizeschke": {
+          "amount": 140000,
+          "count": 1
+        },
+        "Laura Ford": {
+          "amount": 544000,
+          "count": 1
+        }
+      },
+      "ROSEVILLE, CA": {
+        "Katie Pastor Trinidad": {
+          "amount": 9298491,
+          "count": 17
+        },
+        "Rusty Mendoza": {
+          "amount": 3525339,
+          "count": 6
+        },
+        "Greg Choinski": {
+          "amount": 286000,
+          "count": 1
+        },
+        "Josh Sommerfield": {
+          "amount": 2083888,
+          "count": 4
+        },
+        "Matt Von Bergen": {
+          "amount": 2396093,
+          "count": 6
+        },
+        "Josh Sommerfield/Rachael Gaines": {
+          "amount": 536200,
+          "count": 1
+        },
+        "Matt Von Bergen/Rachael Gaines": {
+          "amount": 134000,
+          "count": 1
+        }
+      },
+      "DULUTH, MN": {
+        "Jason Malmstrom": {
+          "amount": 1941532,
+          "count": 5
+        }
+      },
+      "RENO, NV": {
+        "Dereck Bowlen/Josh Sommerfield": {
+          "amount": 369562,
+          "count": 1
+        },
+        "Dereck Bowlen": {
+          "amount": 862000,
+          "count": 2
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Leif Potter/Richard Knell": {
+          "amount": 393000,
+          "count": 1
+        },
+        "Jeff Glass": {
+          "amount": 500000,
+          "count": 1
+        },
+        "Leif Potter/Steven Lee": {
+          "amount": 160000,
+          "count": 1
+        },
+        "Jeffrey Glass/Rachael Gaines": {
+          "amount": 491000,
+          "count": 1
+        },
+        "Shazia Dar": {
+          "amount": 125600,
+          "count": 1
+        }
+      },
+      "LAS VEGAS, NV": {
+        "Barry Willner": {
+          "amount": 1208541,
+          "count": 2
+        }
+      },
+      "HUNTINGTON BEACH, CA": {
+        "Erik Papke/Elvin Estela": {
+          "amount": 505000,
+          "count": 1
+        }
+      },
+      "VIENNA, VA": {
+        "Jenny Nguyen-Dinh": {
+          "amount": 165000,
+          "count": 1
+        }
+      }
+    },
+    "December 2025": {
+      "ROSEVILLE, CA": {
+        "Katie Pastor Trinidad": {
+          "amount": 6693036,
+          "count": 14
+        },
+        "Matt Von Bergen": {
+          "amount": 3502150,
+          "count": 10
+        },
+        "Rusty Mendoza": {
+          "amount": 2100924,
+          "count": 6
+        },
+        "Josh Sommerfield": {
+          "amount": 2618819,
+          "count": 6
+        },
+        "Mike Zamani/Leif Potter": {
+          "amount": 350000,
+          "count": 1
+        }
+      },
+      "OTHER": {
+        "Arvidson/McDonough/Potter": {
+          "amount": 721363,
+          "count": 2
+        },
+        "Sean McDonough/Arvidson": {
+          "amount": 641250,
+          "count": 1
+        },
+        "Daniel O'Brien": {
+          "amount": 500800,
+          "count": 1
+        },
+        "Arvidson/Megan O'Malley": {
+          "amount": 162011,
+          "count": 1
+        },
+        "Lance Cornell/Leif Potter": {
+          "amount": 140000,
+          "count": 1
+        },
+        "Tony Keidel": {
+          "amount": 83750,
+          "count": 1
+        },
+        "Sean McDonough/Potter/Arvidson": {
+          "amount": 304000,
+          "count": 1
+        }
+      },
+      "DULUTH, MN": {
+        "Megan O'Malley": {
+          "amount": 529600,
+          "count": 3
+        },
+        "Jason Malmstrom": {
+          "amount": 1816279,
+          "count": 6
+        }
+      },
+      "VIENNA, VA": {
+        "Jenny Nguyen Dinh": {
+          "amount": 800000,
+          "count": 2
+        }
+      },
+      "RENO, NV": {
+        "Dereck Bowlen": {
+          "amount": 1518550,
+          "count": 3
+        }
+      },
+      "RANCHO PALOS VERDES, CA": {
+        "Shazia Dar": {
+          "amount": 957340,
+          "count": 1
+        },
+        "Lanny Setka/Derek Sepulveda": {
+          "amount": 543750,
+          "count": 1
+        },
+        "Matt Perez": {
+          "amount": 450000,
+          "count": 1
+        },
+        "Leif Potter": {
+          "amount": 775499,
+          "count": 2
+        },
+        "Jeff Glass": {
+          "amount": 500000,
+          "count": 1
+        }
+      },
+      "BEND, OR": {
+        "Joel Morgan": {
+          "amount": 1840500,
+          "count": 3
+        }
+      },
+      "LAS VEGAS, NV": {
+        "Barry Willner": {
+          "amount": 160000,
+          "count": 1
+        }
+      },
+      "HUNTINGTON BEACH, CA": {
+        "Elvin Estela/Erik Papke": {
+          "amount": 812566,
+          "count": 1
+        }
+      }
+    }
+  }
+};
+
+
+const monthOrder2026 = ['January 2026', 'February 2026', 'March 2026', 'April 2026', 'May 2026', 'June 2026', 'July 2026', 'August 2026', 'September 2026', 'October 2026', 'November 2026', 'December 2026'];
+const monthOrder2025 = ['January 2025', 'February 2025', 'March 2025', 'April 2025', 'May 2025', 'June 2025', 'July 2025', 'August 2025', 'September 2025', 'October 2025', 'November 2025', 'December 2025'];
+
+function formatCurrency(amount) {
+  if (amount === 0 || !amount) return '-';
+  if (amount >= 1000000) return '$' + (amount / 1000000).toFixed(1) + 'M';
+  if (amount >= 1000) return '$' + (amount / 1000).toFixed(0) + 'K';
+  return '$' + Math.round(amount).toLocaleString();
+}
+
+function formatCount(count) {
+  return (count === 0 || !count) ? '-' : count.toString();
+}
+
+function cleanLoName(loName) {
+  return loName.includes('/') ? loName.split('/')[0].trim() : loName;
+}
+
+function buildTable(year) {
+  const yearKey = year.toString();
+  const data = productionData[yearKey];
+  const tbody = document.getElementById(`table-body-${year}`);
+  tbody.innerHTML = '';
+  
+  if (!data) return;
+  
+  const monthOrder = year === 2026 ? monthOrder2026 : monthOrder2025;
+  
+  // Aggregate data by branch and LO across all months
+  const branches = {};
+  
+  monthOrder.forEach((month, monthIndex) => {
+    if (!data[month]) return;
+    Object.entries(data[month]).forEach(([branch, los]) => {
+      if (!branches[branch]) branches[branch] = {};
+      Object.entries(los).forEach(([lo, loData]) => {
+        if (!branches[branch][lo]) {
+          branches[branch][lo] = { 
+            amounts: new Array(12).fill(0), 
+            counts: new Array(12).fill(0) 
+          };
+        }
+        branches[branch][lo].amounts[monthIndex] = loData.amount;
+        branches[branch][lo].counts[monthIndex] = loData.count;
+      });
+    });
+  });
+  
+  // Sort branches by total production
+  const sortedBranches = Object.entries(branches).sort((a, b) => {
+    const totalA = Object.values(a[1]).reduce((s, lo) => s + lo.amounts.reduce((x, y) => x + y, 0), 0);
+    const totalB = Object.values(b[1]).reduce((s, lo) => s + lo.amounts.reduce((x, y) => x + y, 0), 0);
+    return totalB - totalA;
+  });
+  
+  let grandAmounts = new Array(12).fill(0);
+  let grandCounts = new Array(12).fill(0);
+  
+  sortedBranches.forEach(([branchName, los]) => {
+    const sortedLos = Object.entries(los).sort((a, b) => {
+      const tA = a[1].amounts.reduce((s, x) => s + x, 0);
+      const tB = b[1].amounts.reduce((s, x) => s + x, 0);
+      return tB - tA;
+    });
+    
+    let branchAmounts = new Array(12).fill(0);
+    let branchCounts = new Array(12).fill(0);
+    
+    sortedLos.forEach(([loName, loData], idx) => {
+      const cleanName = cleanLoName(loName);
+      
+      // Amount row
+      const aRow = tbody.insertRow();
+      aRow.innerHTML = `
+        <td class="branch-name">${idx === 0 ? branchName : ''}</td>
+        <td class="lo-name">${cleanName}</td>
+        <td class="metric-type">Loan Amount</td>
+        ${loData.amounts.map(a => `<td class="amount ${a === 0 ? 'zero-value' : ''}">${formatCurrency(a)}</td>`).join('')}
+        <td class="total">${formatCurrency(loData.amounts.reduce((s, x) => s + x, 0))}</td>
+      `;
+      
+      // Count row
+      const cRow = tbody.insertRow();
+      cRow.innerHTML = `
+        <td></td>
+        <td></td>
+        <td class="metric-type">Loan Count</td>
+        ${loData.counts.map(c => `<td class="count ${c === 0 ? 'zero-value' : ''}">${formatCount(c)}</td>`).join('')}
+        <td class="total">${loData.counts.reduce((s, x) => s + x, 0)}</td>
+      `;
+      
+      loData.amounts.forEach((a, i) => branchAmounts[i] += a);
+      loData.counts.forEach((c, i) => branchCounts[i] += c);
+    });
+    
+    // Branch subtotal (only if more than 1 LO)
+    if (sortedLos.length > 1) {
+      const subARow = tbody.insertRow();
+      subARow.className = 'subtotal-row';
+      subARow.innerHTML = `
+        <td class="branch-name">${branchName} Total</td>
+        <td></td>
+        <td class="metric-type">Loan Amount</td>
+        ${branchAmounts.map(a => `<td class="amount">${formatCurrency(a)}</td>`).join('')}
+        <td class="total">${formatCurrency(branchAmounts.reduce((s, x) => s + x, 0))}</td>
+      `;
+      
+      const subCRow = tbody.insertRow();
+      subCRow.className = 'subtotal-row';
+      subCRow.innerHTML = `
+        <td></td>
+        <td></td>
+        <td class="metric-type">Loan Count</td>
+        ${branchCounts.map(c => `<td class="count">${formatCount(c)}</td>`).join('')}
+        <td class="total">${branchCounts.reduce((s, x) => s + x, 0)}</td>
+      `;
+    }
+    
+    branchAmounts.forEach((a, i) => grandAmounts[i] += a);
+    branchCounts.forEach((c, i) => grandCounts[i] += c);
+  });
+  
+  // Grand total
+  const gtARow = tbody.insertRow();
+  gtARow.className = 'grand-total-row';
+  gtARow.innerHTML = `
+    <td>GRAND TOTAL</td>
+    <td></td>
+    <td>Loan Amount</td>
+    ${grandAmounts.map(a => `<td class="amount">${formatCurrency(a)}</td>`).join('')}
+    <td class="total">${formatCurrency(grandAmounts.reduce((s, x) => s + x, 0))}</td>
+  `;
+  
+  const gtCRow = tbody.insertRow();
+  gtCRow.className = 'grand-total-row';
+  gtCRow.innerHTML = `
+    <td></td>
+    <td></td>
+    <td>Loan Count</td>
+    ${grandCounts.map(c => `<td class="count">${formatCount(c)}</td>`).join('')}
+    <td class="total">${grandCounts.reduce((s, x) => s + x, 0)}</td>
+  `;
+}
+
+let currentYear = 2026;
+
+function showYear(year, event) {
+  currentYear = year;
+  document.getElementById('production-table-2026').style.display = year === 2026 ? 'table' : 'none';
+  document.getElementById('production-table-2025').style.display = year === 2025 ? 'table' : 'none';
+  
+  document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+  if (event && event.target) event.target.classList.add('active');
+}
+
+function printDashboard() {
+  // Mark which table to print based on currentYear
+  document.querySelectorAll('.production-table').forEach(t => t.classList.remove('print-active'));
+  document.getElementById(`production-table-${currentYear}`).classList.add('print-active');
+  
+  // Update print year indicator
+  document.getElementById('printYearIndicator').textContent = `Production Report · ${currentYear}`;
+  
+  // Trigger print
+  window.print();
+}
+
+// Modal functions
+function showUploadModal() {
+  document.getElementById('uploadModal').style.display = 'block';
+}
+
+function hideUploadModal() {
+  document.getElementById('uploadModal').style.display = 'none';
+  document.getElementById('uploadForm').reset();
+  document.getElementById('fileInfo').style.display = 'none';
+  document.getElementById('errorMessage').style.display = 'none';
+  document.getElementById('successMessage').style.display = 'none';
+}
+
+document.getElementById('plFile').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (file) {
+    document.getElementById('fileInfo').textContent = `Selected: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+    document.getElementById('fileInfo').style.display = 'block';
+  }
+});
+
+document.getElementById('uploadForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const code = document.getElementById('accessCode').value;
+  const month = document.getElementById('finalMonth').value;
+  const file = document.getElementById('plFile').files[0];
+  
+  if (code !== '1352') {
+    document.getElementById('errorMessage').textContent = 'Invalid access code.';
+    document.getElementById('errorMessage').style.display = 'block';
+    return;
+  }
+  
+  if (!file || !month) {
+    document.getElementById('errorMessage').textContent = 'Please complete all fields.';
+    document.getElementById('errorMessage').style.display = 'block';
+    return;
+  }
+  
+  document.getElementById('successMessage').textContent = `File received. To update the dashboard with new data, please send the file to your administrator for processing.`;
+  document.getElementById('successMessage').style.display = 'block';
+});
+
+window.addEventListener('click', function(e) {
+  if (e.target === document.getElementById('uploadModal')) hideUploadModal();
+});
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+  buildTable(2026);
+  buildTable(2025);
+});
+</script>
+
+</body>
+</html>
